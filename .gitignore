@@ -1,0 +1,16 @@
+# Logs
+logs
+*.log
+*.rdb
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Dependency directories
+node_modules/
+elm-stuff/
+
+.DS_Store
+.vscode/

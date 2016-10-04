@@ -1,12 +1,12 @@
 {
   "name": "preethi-blog",
   "description": "Preethi's blog",
-  "version": "0.1",
+  "version": "0.0.1",
   "license": "MIT",
   "author": "Preethi Kasireddy",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/iam-peekay/preethi-blog.git"
   },
   "scripts": {
     "start": "webpack-dev-server --hot --inline --content-base src/",

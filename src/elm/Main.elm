@@ -3,14 +3,18 @@ import Html.Attributes exposing (..)
 import Html.App as Html
 import Html.Events exposing (onClick)
 
--- component import example
-import Components.Hello exposing (hello)
+-- Component import
+import Components.BlogHeader exposing (blogHeader)
 
 
 -- APP
 main : Program Never
 main =
-  Html.beginnerProgram { model = model, view = view, update = update }
+  Html.beginnerProgram 
+  { model = model
+  , view = view
+  , update = update 
+  }
 
 
 -- MODEL
@@ -31,24 +35,10 @@ update msg model =
 
 
 -- VIEW
--- Html is defined as: elem [ attribs ][ children ]
--- CSS can be applied via class names or inline style attrib
 view : Model -> Html Msg
 view model =
-  div [ class "container", style [("margin-top", "30px"), ( "text-align", "center" )] ][ 
-    div [ class "row" ][
-      div [ class "col-xs-12" ][
-        div [ class "jumbotron" ][
-          img [ src "static/img/elm.jpg", style styles.img ] []
-          , hello model
-          , p [] [ text ( "Elm Webpack Starter" ) ]
-          , button [ class "btn btn-primary btn-lg", onClick Increment ] [
-            span[ class "glyphicon glyphicon-star" ][]
-            , span[][ text "FTW!" ]
-          ]
-        ]
-      ]
-    ]
+  div [ class "container" ] [
+    div [] [ blogHeader model ]
   ]
 
 -- CSS STYLES

@@ -1,7 +1,7 @@
 {
     "version": "1.0.0",
     "summary": "Preethi blog",
-    "repository": "",
+    "repository": "https://github.com/iam-peekay/preethi-blog.git",
     "license": "MIT",
     "source-directories": [
         "src/elm"

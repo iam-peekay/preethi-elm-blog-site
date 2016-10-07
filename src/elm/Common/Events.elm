@@ -10,6 +10,7 @@ onClick : msg -> Attribute msg
 onClick message = 
   onWithOptions "click" preventDefault (Json.succeed message)
 
+
 preventDefault : Options
 preventDefault = 
   { stopPropagation = True

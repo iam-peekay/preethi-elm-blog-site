@@ -1,10 +1,9 @@
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.App as Html
-import Html.Events exposing (onClick)
 
 -- Component import
-import Components.BlogHeader exposing (blogHeader)
+import Components.Header as MainHeader
 
 
 -- APP
@@ -38,5 +37,5 @@ update msg model =
 view : Model -> Html Msg
 view model =
   div [ class "container" ] [
-    div [] [ blogHeader model ]
+    div [] [ MainHeader.component model ]
   ]

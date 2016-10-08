@@ -1,41 +1,109 @@
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.App as Html
+import Navigation
+import String
+import UrlParser exposing (Parser, (</>), format, int, oneOf, s, string)
 
 -- Component import
 import Components.Header as MainHeader
 
 
+init : Route -> (Route, Cmd Msg)
+init route =
+  case route of
+    _ ->
+      ( route, Cmd.none )
+
+
 -- APP
 main : Program Never
 main =
-  Html.beginnerProgram 
-  { model = model
-  , view = view
-  , update = update 
-  }
+  Navigation.program urlParser
+    { init = init
+    , view = view
+    , update = update
+    , urlUpdate = urlUpdate
+    , subscriptions = subscriptions
+    }
 
 
 -- MODEL
-type alias Model = Int
 
-model : number
-model = 0
+type alias State =
+  { route : Route }
 
+newState : Route -> State
+newState route =
+  { route = route }
 
 -- UPDATE
-type Msg = NoOp | Increment
 
-update : Msg -> Model -> Model
-update msg model =
-  case msg of
-    NoOp -> model
-    Increment -> model + 1
+type Msg = String
+
+update : Msg -> Route -> (Route, Cmd Msg)
+update msg route =
+  let newRoute = route
+  in
+    (newRoute, Cmd.none)
+
+-- URL PARSERS
+
+type Route
+  = HomeRoute
+  | NotFound
+
+urlUpdate : Route -> Route -> (Route, Cmd Msg)
+urlUpdate route msg =
+  case route of
+    _ ->
+      (msg, Cmd.none)
+
+urlParser : Navigation.Parser Route
+urlParser =
+  Navigation.makeParser parse
+
+parse : Navigation.Location -> Route
+parse {pathname} =
+  let
+    path =
+      if String.startsWith "/" pathname then
+        String.dropLeft 1 pathname
+      else
+        pathname
+
+    result =
+      UrlParser.parse identity routeParser path
+
+  in
+    case result of
+      Err err -> NotFound
+
+      Ok route -> route
+
+routeParser : Parser (Route -> a) a
+routeParser =
+  oneOf
+    [ format HomeRoute homeParser
+    ]
+
+
+homeParser : Parser a a
+homeParser =
+  oneOf
+    [ (UrlParser.s "index.html")
+    , (UrlParser.s "")
+    ]
+
+-- SUBSCRIPTIONS
+
+subscriptions : Route -> Sub Msg
+subscriptions model =
+  Sub.none
 
 
 -- VIEW
-view : Model -> Html Msg
-view model =
+view : Route -> Html Msg
+view state =
   div [ class "container" ] [
-    div [] [ MainHeader.component model ]
+    div [] [ MainHeader.component state ]
   ]

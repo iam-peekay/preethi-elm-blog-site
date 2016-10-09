@@ -5,17 +5,19 @@ import Html.Attributes exposing (..)
 import Navigation
 import String
 import UrlParser exposing (Parser, (</>), format, int, oneOf, s, string)
+import Models exposing(..)
 import Routes.Routes exposing(..)
+import Update exposing(..)
 
 -- Component import
 import Components.Header as MainHeader
 
 
-init : Route -> (Route, Cmd Msg)
+init : Route -> (State, Cmd Msg)
 init route =
   case route of
     _ ->
-      ( route, Cmd.none )
+      ( newState route Nothing, Cmd.none )
 
 
 -- APP
@@ -32,21 +34,14 @@ main =
 
 -- UPDATE
 
-type Msg = String
-
-update : Msg -> Route -> (Route, Cmd Msg)
-update msg route =
-  let newRoute = route
-  in
-    (newRoute, Cmd.none)
 
 -- URL PARSERS
 
-urlUpdate : Route -> Route -> (Route, Cmd Msg)
-urlUpdate route msg =
+urlUpdate : Route -> State -> (State, Cmd Msg)
+urlUpdate route state =
   case route of
     _ ->
-      (msg, Cmd.none)
+      ({ state | route = route}, Cmd.none)
 
 urlParser : Navigation.Parser Route
 urlParser =
@@ -86,13 +81,13 @@ homeParser =
 
 -- SUBSCRIPTIONS
 
-subscriptions : Route -> Sub Msg
-subscriptions model =
+subscriptions : State -> Sub Msg
+subscriptions state =
   Sub.none
 
 
 -- VIEW
-view : Route -> Html a
+view : State -> Html a
 view route =
   div [ class "container" ] [
     div [] [ MainHeader.component ]

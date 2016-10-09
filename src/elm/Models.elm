@@ -1,4 +1,4 @@
-module Models exposing(..)
+module Models exposing (..)
 
 import Routes.Routes exposing(Route)
 

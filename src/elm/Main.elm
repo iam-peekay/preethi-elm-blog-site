@@ -1,16 +1,12 @@
 module Main exposing (..)
 
-import Html exposing (..)
-import Html.Attributes exposing (..)
 import Navigation
 import String
 import UrlParser exposing (Parser, (</>), format, int, oneOf, s, string)
-import Models exposing(..)
-import Routes.Routes exposing(..)
-import Update exposing(..)
-
--- Component import
-import Components.Header as MainHeader
+import Models exposing (..)
+import View exposing (view)
+import Routes.Routes exposing (..)
+import Update exposing (..)
 
 
 init : Route -> (State, Cmd Msg)
@@ -84,11 +80,3 @@ homeParser =
 subscriptions : State -> Sub Msg
 subscriptions state =
   Sub.none
-
-
--- VIEW
-view : State -> Html a
-view route =
-  div [ class "container" ] [
-    div [] [ MainHeader.component ]
-  ]

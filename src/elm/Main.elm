@@ -102,8 +102,8 @@ subscriptions model =
 
 
 -- VIEW
-view : Route -> Html Msg
-view state =
+view : Route -> Html a
+view route =
   div [ class "container" ] [
-    div [] [ MainHeader.component state ]
+    div [] [ MainHeader.component ]
   ]

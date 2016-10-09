@@ -6,6 +6,7 @@ import View exposing (view)
 import Routes.Routes exposing (..)
 import Update exposing (..)
 import Routes.Parsers exposing (urlParser)
+import Messages exposing (Msg)
 
 init : Route -> (State, Cmd Msg)
 init route =
@@ -15,6 +16,7 @@ init route =
 
 
 -- APP
+
 main : Program Never
 main =
   Navigation.program urlParser
@@ -24,6 +26,7 @@ main =
     , urlUpdate = urlUpdate
     , subscriptions = subscriptions
     }
+
 
 -- SUBSCRIPTIONS
 

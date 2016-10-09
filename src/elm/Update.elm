@@ -2,8 +2,7 @@ module Update exposing (..)
 
 import Models exposing(State, Post)
 import Routes.Routes exposing(Route)
-
-type Msg = String
+import Messages exposing (Msg)
 
 update : Msg -> State -> (State, Cmd Msg)
 update msg state =

@@ -1,8 +1,11 @@
+module Main exposing (..)
+
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Navigation
 import String
 import UrlParser exposing (Parser, (</>), format, int, oneOf, s, string)
+import Routes.Routes exposing(..)
 
 -- Component import
 import Components.Header as MainHeader
@@ -27,15 +30,6 @@ main =
     }
 
 
--- MODEL
-
-type alias State =
-  { route : Route }
-
-newState : Route -> State
-newState route =
-  { route = route }
-
 -- UPDATE
 
 type Msg = String
@@ -47,10 +41,6 @@ update msg route =
     (newRoute, Cmd.none)
 
 -- URL PARSERS
-
-type Route
-  = HomeRoute
-  | NotFound
 
 urlUpdate : Route -> Route -> (Route, Cmd Msg)
 urlUpdate route msg =

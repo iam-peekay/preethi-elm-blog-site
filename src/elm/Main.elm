@@ -1,13 +1,11 @@
 module Main exposing (..)
 
 import Navigation
-import String
-import UrlParser exposing (Parser, (</>), format, int, oneOf, s, string)
 import Models exposing (..)
 import View exposing (view)
 import Routes.Routes exposing (..)
 import Update exposing (..)
-
+import Routes.Parsers exposing (urlParser)
 
 init : Route -> (State, Cmd Msg)
 init route =
@@ -26,54 +24,6 @@ main =
     , urlUpdate = urlUpdate
     , subscriptions = subscriptions
     }
-
-
--- UPDATE
-
-
--- URL PARSERS
-
-urlUpdate : Route -> State -> (State, Cmd Msg)
-urlUpdate route state =
-  case route of
-    _ ->
-      ({ state | route = route}, Cmd.none)
-
-urlParser : Navigation.Parser Route
-urlParser =
-  Navigation.makeParser parse
-
-parse : Navigation.Location -> Route
-parse {pathname} =
-  let
-    path =
-      if String.startsWith "/" pathname then
-        String.dropLeft 1 pathname
-      else
-        pathname
-
-    result =
-      UrlParser.parse identity routeParser path
-
-  in
-    case result of
-      Err err -> NotFound
-
-      Ok route -> route
-
-routeParser : Parser (Route -> a) a
-routeParser =
-  oneOf
-    [ format HomeRoute homeParser
-    ]
-
-
-homeParser : Parser a a
-homeParser =
-  oneOf
-    [ (UrlParser.s "index.html")
-    , (UrlParser.s "")
-    ]
 
 -- SUBSCRIPTIONS
 

@@ -1,7 +1,7 @@
 module Update exposing (..)
 
-import Models exposing(State, Post)
-import Routes.Routes exposing(Route)
+import Models exposing (State, Post)
+import Routes.Routes exposing (Route)
 import Messages exposing (Msg)
 
 update : Msg -> State -> (State, Cmd Msg)

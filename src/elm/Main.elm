@@ -3,10 +3,10 @@ module Main exposing (..)
 import Navigation
 import Models exposing (..)
 import View exposing (view)
-import Routes.Routes exposing (..)
 import Update exposing (..)
-import Routes.Parsers exposing (urlParser)
 import Messages exposing (Msg)
+import Routes.Routes exposing (..)
+import Routes.Parsers exposing (urlParser)
 
 init : Route -> (State, Cmd Msg)
 init route =

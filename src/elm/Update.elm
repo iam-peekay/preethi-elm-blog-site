@@ -20,14 +20,19 @@ update msg state =
         (state, newCmd)
     ReceivePosts posts ->
       let newState =
-        { state | posts = Just posts, loading = False }
+        { state | posts = Just posts, fetching = False }
       in 
         (newState, Cmd.none)
-    _ ->
-      let newCmd =
-         Navigation.newUrl (reverse HomeRoute)
+    ReceivePost post ->
+      let newState =
+        { state | current = Just post, fetching = False }
       in 
-        (state, newCmd)
+        (newState, Cmd.none)
+    FetchFailed error ->
+      let error = { id = error.id, message = error.message }
+          newState = { state | error = Just error }
+      in 
+        (newState, Cmd.none)
 
 
 urlUpdate : Route -> State -> (State, Cmd Msg)

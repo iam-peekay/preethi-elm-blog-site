@@ -2,10 +2,16 @@ module Models exposing (..)
 
 import Routes.Routes exposing (Route)
 
+type alias Error =
+  { id: Int
+  , message: String
+  }
+
 -- APP STATE
 type alias State =
   { route : Route
   , fetching : Bool
+  , error : Maybe Error
   , posts : Maybe (List Post)
   , current : Maybe Post 
   }
@@ -24,5 +30,6 @@ newState route post =
   { route = route
   , fetching = False
   , posts = Nothing
+  , error = Nothing
   , current = post
   }

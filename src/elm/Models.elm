@@ -1,6 +1,6 @@
 module Models exposing (..)
 
-import Routes.Routes exposing(Route)
+import Routes.Routes exposing (Route)
 
 -- APP STATE
 type alias State =

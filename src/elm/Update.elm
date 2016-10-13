@@ -4,6 +4,7 @@ import Navigation
 import Models exposing (State, Post)
 import Routes.Routes exposing (..)
 import Messages exposing (Msg(..))
+import Tasks exposing (..)
 
 update :  Msg -> State -> (State, Cmd Msg)
 update msg state =
@@ -43,8 +44,7 @@ urlUpdate route state =
         newState = 
           { state | posts = Nothing, route = route, fetching = True }
         newCmd =
-          -- fetchPosts TODO
-          Cmd.none
+          fetchPosts
       in
         (newState, newCmd)
     About ->
@@ -58,8 +58,7 @@ urlUpdate route state =
         newState = 
           { state | current = Nothing, route = route, fetching = True }
         newCmd =
-          -- fetchPost postId TODO
-          Cmd.none
+          fetchPost postId
       in
         (newState, newCmd)
     NotFound ->

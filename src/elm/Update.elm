@@ -40,9 +40,3 @@ urlUpdate route state =
   case route of
     _ ->
       ({ state | route = route}, Cmd.none)
-
-  -- = ShowHome
-  -- | ShowPost PostId
-  -- | ReceivePosts (List Post)
-  -- | ReceivePost Post
-  -- | FetchFailed Http.Error

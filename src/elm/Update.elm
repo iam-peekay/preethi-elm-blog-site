@@ -70,5 +70,3 @@ urlUpdate route state =
           { state | current = Nothing, posts = Nothing, route = route, error = Just error }
       in
         (newState, Cmd.none)
-    _ ->
-      ({ state | route = route}, Cmd.none)

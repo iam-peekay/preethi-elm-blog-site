@@ -14,4 +14,3 @@ decodePost =
 decodePosts : Decoder (List Post)
 decodePosts = 
   list decodePost
-  

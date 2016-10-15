@@ -12,7 +12,6 @@ fetchPosts =
   in 
     Task.perform FetchFailed ReceivePosts (Http.get decodePosts url)
 
-
 fetchPost : Int -> Cmd Msg 
 fetchPost postId =
   let 

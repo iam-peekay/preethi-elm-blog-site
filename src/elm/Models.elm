@@ -24,7 +24,7 @@ type alias Post =
   , body : String
   }
 
--- INIT NEW STATE
+-- INIT STATE
 newState : Route -> Maybe Post -> State
 newState route post =
   { route = route

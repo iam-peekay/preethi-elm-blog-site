@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const db = require('../db/fakeDb');
 
 app.get('/', (req, res) => {
   res.send('hello world');

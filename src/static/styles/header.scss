@@ -1,5 +1,16 @@
-.header {
-  font-size: 36px;
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 20px;
   color: #EF959D;
-  text-align: center;
+  margin: 5px;
+  > * {
+    margin: 0 5px;
+  }
+}
+
+.navbar-link {
+  padding: 0 5px;
 }

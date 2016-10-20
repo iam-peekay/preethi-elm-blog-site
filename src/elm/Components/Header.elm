@@ -11,7 +11,7 @@ import Messages exposing(Msg(..))
 -- Parent header component
 component : Html Msg
 component =
-  div [] [ h1 [ class "header" ] [ text ( "Preethi's Space") ]
+  div [ class "header-container" ] [ h1 [ class "header" ] [ text ( "Preethi's Space") ]
          , div [] [ navBar ]
          ]
 
@@ -24,10 +24,9 @@ navBar =
       aboutPath = 
         reverse AboutRoute
   in
-    nav [ class "header-nav" ]
-      [ a (headerLinkAttributes ShowHome homePath) [ text "Home" ]
-      , a (headerLinkAttributes ShowAbout aboutPath) [ text "About" ]
-      ]
+    div [] [ a (headerLinkAttributes ShowHome homePath) [ text "Home" ]
+           , a (headerLinkAttributes ShowAbout aboutPath) [ text "About" ]
+           ]
 
 -- Grand child component
 headerLinkAttributes : Msg -> String -> List (Attribute Msg)

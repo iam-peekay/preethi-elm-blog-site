@@ -19,6 +19,11 @@ update msg state =
         Navigation.newUrl (reverse (PostRoute postId))
       in 
         (state, newCmd)
+    ShowAbout ->
+      let newCmd =
+        Navigation.newUrl (reverse (AboutRoute))
+      in 
+        (state, newCmd)
     ReceivePosts posts ->
       let newState =
         { state | posts = Just posts, fetching = False }
@@ -47,7 +52,7 @@ urlUpdate route state =
           fetchPosts
       in
         (newState, newCmd)
-    About ->
+    AboutRoute ->
       let 
         newState = 
           { state | current = Nothing, route = route }

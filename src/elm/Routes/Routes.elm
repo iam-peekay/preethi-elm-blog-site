@@ -6,7 +6,7 @@ type alias PostId =
 type Route
   = HomeRoute
   | PostRoute PostId
-  | About
+  | AboutRoute
   | NotFound
 
 reverse : Route -> String
@@ -16,5 +16,7 @@ reverse route =
       "/post" ++ (toString postId)
     HomeRoute ->
       "/"
-    _ ->
-      "/"
+    AboutRoute ->
+      "/about"
+    NotFound ->
+      "/404"

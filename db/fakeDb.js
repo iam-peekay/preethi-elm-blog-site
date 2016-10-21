@@ -1,4 +1,4 @@
-const filter = require('lodash/filter');
+const find = require('lodash/find');
 
 const data = [
   {
@@ -21,6 +21,6 @@ module.exports = {
   },
 
   getPost(id) {
-    return filter(data, ['id', id]);
+    return find(data, ['id', id]);
   },
 };

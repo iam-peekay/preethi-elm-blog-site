@@ -36,6 +36,7 @@
     "webpack-merge": "^0.14.1"
   },
   "dependencies": {
+    "bunyan": "^1.8.3",
     "express": "^4.14.0",
     "forever": "^0.15.2",
     "http": "0.0.0",

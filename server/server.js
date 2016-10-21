@@ -2,6 +2,8 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const db = require('../db/fakeDb');
+const bunyan = require('bunyan');
+const log = bunyan.createLogger({name: "preethi-elm-blog-api"});
 
 /* Define API routes */
 
@@ -10,7 +12,18 @@ app.get('/api/posts', (req, res) => {
   const posts = db.getPosts();
   if (posts) {
     res.json(posts);
+    
+    log.info({
+      endpoint: req.url,
+      description: 'get all posts successful',
+    });
   } else {
+    log.error({
+      endpoint: req.url,
+      description: 'get all posts error',
+      error: req.error,
+    });
+
     res.status(404).send('Not Found');
   }
 });
@@ -21,7 +34,18 @@ app.get('/api/posts/:id', (req, res) => {
   const post = db.getPost(id);
   if (post) {
     res.json(post);
+
+    log.info({
+      endpoint: req.url,
+      description: `get posts id ${id} successful`,
+    });
   } else {
+    log.error({
+      endpoint: req.url,
+      description: `get posts id ${id} error`,
+      error: req.error,
+    });
+
     res.status(404).send('Not Found');
   }
 });

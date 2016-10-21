@@ -19,7 +19,26 @@ bodyContent state =
       div [] [ text "This is where posts will go!!" ]
     _ -> 
       div [] [ text "This is the default route!!" ]
-      
+
+
+postsListComponent : Maybe (List Post) -> Html Msg 
+postsListComponent posts =
+  case posts of
+    Just posts ->
+      postList posts
+    Nothing -> 
+      div [ class "empty-posts"  ] [ text "No posts yet. Check back later!" ]
+
+
+postList : (List Post) -> Html Msg 
+postList posts =
+  ul [ class "posts-list" ] (List.map postItem posts)
+
+
+postItem : Post -> Html Msg
+postItem post =
+  li [ class "post-item" ]
+     [ h2 [ class "post-title" ] [ text post.title ] ]
 
 postLinkAttributes : Msg -> String -> List (Attribute Msg)
 postLinkAttributes =

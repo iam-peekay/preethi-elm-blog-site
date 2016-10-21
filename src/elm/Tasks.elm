@@ -11,7 +11,7 @@ apiHost = "http://localhost:3000"
 fetchPosts : Cmd Msg 
 fetchPosts = 
   let 
-    url = apiHost ++ "/api/posts333"
+    url = apiHost ++ "/api/posts"
   in 
     Task.perform FetchFailed ReceivePosts (Http.get decodePosts url)
 

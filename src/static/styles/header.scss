@@ -5,10 +5,13 @@
   width: 100%;
   font-size: 20px;
   color: #EF959D;
-  margin: 20px 0;
+  margin: 20px 0 40px;
+  padding-bottom: 14px;
   > * {
     margin: 0 5px;
   }
+  border-bottom: 1px solid;
+
 }
 
 .navbar-link {

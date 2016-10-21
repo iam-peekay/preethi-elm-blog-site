@@ -5,16 +5,20 @@ import Decoders.Posts exposing (..)
 import Http
 import Task 
 
+apiHost : String
+apiHost = "http://localhost:3000"
+
 fetchPosts : Cmd Msg 
 fetchPosts = 
   let 
-    url = "/api/posts"
+    url = apiHost ++ "/api/posts"
   in 
     Task.perform FetchFailed ReceivePosts (Http.get decodePosts url)
+
 
 fetchPost : Int -> Cmd Msg 
 fetchPost postId =
   let 
-    url = "/api/post/" ++ (toString postId)
+    url = apiHost ++ "/api/post/" ++ (toString postId)
   in 
     Task.perform FetchFailed ReceivePost (Http.get decodePost url)

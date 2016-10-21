@@ -5,6 +5,16 @@ const db = require('../db/fakeDb');
 const bunyan = require('bunyan');
 const log = bunyan.createLogger({name: "preethi-elm-blog-api"});
 
+// Add headers
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+
+  next();
+});
+
 /* Define API routes */
 
 // Get all posts

@@ -28,7 +28,6 @@ update msg state =
       let newState =
         { state | posts = Just posts, fetching = False }
       in
-        Debug.log "State received"
         (newState, Cmd.none)
     ReceivePost post ->
       let newState =

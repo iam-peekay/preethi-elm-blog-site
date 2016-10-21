@@ -3,7 +3,7 @@ module Models exposing (..)
 import Routes.Routes exposing (Route)
 
 type alias Error =
-  { id: String
+  { code: String
   , message: String
   }
 

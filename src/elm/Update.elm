@@ -1,7 +1,8 @@
 module Update exposing (..)
 
 import Navigation
-import Models exposing (State, Post)
+import Http
+import Models exposing (State, Post, Error)
 import Routes.Routes exposing (..)
 import Messages exposing (Msg(..))
 import Tasks exposing (..)
@@ -35,10 +36,21 @@ update msg state =
       in 
         (newState, Cmd.none)
     FetchFailed error ->
-      let error = { id = error.id, message = error.message }
-          newState = { state | error = Just error }
-      in 
-        (newState, Cmd.none)
+      case error of
+        Http.BadResponse code message ->
+          let error =
+                { code = toString code, message = message }
+              newState =
+                { state | fetching = False, error = Just error }
+          in 
+            (newState, Cmd.none)
+        _ ->
+          let error =
+                { code = "unknown_error", message = "Something bad happened" }
+              newState =
+                { state | fetching = False, error = Just error }
+          in 
+            (newState, Cmd.none)
 
 
 urlUpdate : Route -> State -> (State, Cmd Msg)
@@ -68,8 +80,8 @@ urlUpdate route state =
         (newState, newCmd)
     NotFound ->
       let
-        error = 
-          { id = "not_found", message = "Page not found" }
+        error =
+          { code = "not_found", message = "Page not found" }
         newState = 
           { state | current = Nothing, posts = Nothing, route = route, error = Just error }
       in

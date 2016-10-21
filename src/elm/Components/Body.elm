@@ -17,6 +17,8 @@ bodyContent state =
   case state.route of
     HomeRoute -> 
       postsListComponent state.posts
+    PostRoute postId -> -- TODO
+      div [] [ text "This is where a post needs to exist" ]
     _ -> 
       div [] [ text "This is the default route!!" ]
 
@@ -38,7 +40,9 @@ postList posts =
 postItem : Post -> Html Msg
 postItem post =
   li [ class "post-item" ]
-     [ h2 [ class "post-title" ] [ text post.title ] ]
+     [ a (postLinkAttributes (ShowPost post.id) (reverse (PostRoute post.id)))
+      [ h2 [ class "post-title" ] [ text post.title ] ]
+     ]
 
 postLinkAttributes : Msg -> String -> List (Attribute Msg)
 postLinkAttributes =

@@ -13,7 +13,7 @@ reverse : Route -> String
 reverse route =
   case route of
     PostRoute postId ->
-      "/post" ++ (toString postId)
+      "/post/" ++ (toString postId)
     HomeRoute ->
       "/"
     AboutRoute ->

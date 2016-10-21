@@ -15,6 +15,8 @@ init route =
   case route of
     HomeRoute ->
       ( newState route Nothing, fetchPosts )
+    AboutRoute ->
+      ( newState route Nothing, Cmd.none )
     PostRoute postId ->
       ( newState route Nothing, fetchPost postId )
     _ ->

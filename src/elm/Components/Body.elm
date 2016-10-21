@@ -16,7 +16,7 @@ bodyContent : State -> Html Msg
 bodyContent state = 
   case state.route of
     HomeRoute -> 
-      div [] [ text "This is where posts will go!!" ]
+      postsListComponent state.posts
     _ -> 
       div [] [ text "This is the default route!!" ]
 

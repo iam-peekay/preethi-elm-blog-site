@@ -2,7 +2,6 @@ module Components.Header exposing (component)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Common.Events exposing (onClick)
 import Common.Html exposing (linkAttributes)
 import Routes.Routes exposing (..)
 import Messages exposing(Msg(..))

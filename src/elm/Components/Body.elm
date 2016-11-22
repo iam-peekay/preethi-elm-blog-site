@@ -2,6 +2,7 @@ module Components.Body exposing (component)
 
 import Html exposing (Html, Attribute, h2, ul, li, div, text, a, p, header)
 import Html.Attributes exposing (class, href)
+import Components.Post.Content as PostContent
 import Routes.Routes exposing (..)
 import Messages exposing (Msg(..))
 import Models exposing (State, Post)
@@ -17,8 +18,8 @@ bodyContent state =
   case state.route of
     HomeRoute -> 
       postsListComponent state.posts
-    PostRoute postId -> -- TODO
-      div [] [ text "This is where a post needs to exist" ]
+    PostRoute postId ->
+      PostContent.component state.current
     _ -> 
       div [] [ text "This is the default route!!" ]
 

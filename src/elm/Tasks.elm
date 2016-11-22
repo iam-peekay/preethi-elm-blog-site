@@ -19,6 +19,6 @@ fetchPosts =
 fetchPost : Int -> Cmd Msg 
 fetchPost postId =
   let 
-    url = apiHost ++ "/api/post/" ++ (toString postId)
+    url = apiHost ++ "/api/posts/" ++ (toString postId)
   in 
     Task.perform FetchFailed ReceivePost (Http.get decodePost url)

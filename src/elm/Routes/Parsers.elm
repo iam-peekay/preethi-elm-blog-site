@@ -31,6 +31,7 @@ routeParser : Parser (Route -> a) a
 routeParser =
   oneOf
     [ format HomeRoute homeParser
+    , format PostRoute postParser
     ]
 
 
@@ -40,3 +41,7 @@ homeParser =
     [ (UrlParser.s "index.html")
     , (UrlParser.s "")
     ]
+
+postParser : Parser (Int -> a) a
+postParser = 
+  s "post" </> int

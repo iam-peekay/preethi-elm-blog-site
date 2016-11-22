@@ -1,6 +1,23 @@
-.post-title {
+.post-item {
+  padding-bottom: 15px;
+}
+
+.post-item-title {
   font-size: 24px;
+  font-weight: 500;
   color: #FCDDBC;
+}
+
+.post-item-url {
+  text-decoration: none;
+
+  &:visited {
+    color: #FCDDBC;
+  }
+
+  &:hover {
+    color: #EF959D;
+  }
 }
 
 .posts-list {
@@ -13,4 +30,29 @@
   font-size: 20px;
   font-weight: 500;
   color: #FCDDBC;
+}
+
+.post-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-header {
+  text-align: center;
+  color: #FCDDBC;
+  font-size: 24px;
+  font-weight: 500;
+  padding-bottom: 10px;
+}
+
+.post-author {
+  text-align: center;
+  font-size: 16px;
+  color: #EF959D;
+  padding-bottom: 10px;
+}
+
+.post-body {
+  font-size: 16px;
+  color: #BBBDC1;
 }

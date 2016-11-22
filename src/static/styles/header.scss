@@ -16,4 +16,13 @@
 
 .navbar-link {
   padding: 0 5px;
+  text-decoration: none;
+
+  &:visited {
+    color: #EF959D;
+  }
+
+  &:hover {
+    color: #FCDDBC;
+  }
 }

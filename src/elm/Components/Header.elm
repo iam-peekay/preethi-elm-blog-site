@@ -3,6 +3,7 @@ module Components.Header exposing (component)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Common.Html exposing (linkAttributes)
+import Routes.Parsers exposing (encode)
 import Routes.Routes exposing (..)
 import Messages exposing (Msg(..))
 
@@ -26,10 +27,10 @@ navBar : Html Msg
 navBar =
     let
         homePath =
-            reverse HomeRoute
+            encode HomeRoute
 
         aboutPath =
-            reverse AboutRoute
+            encode AboutRoute
     in
         div []
             [ a (headerLinkAttributes ShowHome homePath) [ text "Home" ]

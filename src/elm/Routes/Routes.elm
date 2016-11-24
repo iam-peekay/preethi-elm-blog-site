@@ -1,4 +1,4 @@
-module Routes.Routes exposing (Route(..), reverse)
+module Routes.Routes exposing (Route(..))
 
 
 type alias PostId =
@@ -10,19 +10,3 @@ type Route
     | PostRoute PostId
     | AboutRoute
     | NotFound
-
-
-reverse : Route -> String
-reverse route =
-    case route of
-        PostRoute postId ->
-            "/post/" ++ (toString postId)
-
-        AboutRoute ->
-            "/about"
-
-        NotFound ->
-            "/404"
-
-        HomeRoute ->
-            "/"

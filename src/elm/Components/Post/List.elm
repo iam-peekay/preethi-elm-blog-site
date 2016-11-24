@@ -4,6 +4,7 @@ import Html exposing (Html, Attribute, h2, ul, li, div, text, a, header)
 import Html.Attributes exposing (class, href)
 import Common.Html exposing (linkAttributes)
 import Models exposing (Post)
+import Routes.Parsers exposing (encode)
 import Routes.Routes exposing (..)
 import Messages exposing (Msg(..))
 
@@ -26,7 +27,7 @@ postList posts =
 postListItem : Post -> Html Msg
 postListItem post =
     li [ class "post-item" ]
-        [ a (postLinkAttributes (ShowPost post.id) (reverse (PostRoute post.id)))
+        [ a (postLinkAttributes (ShowPost post.id) (encode (PostRoute post.id)))
             [ div [ class "post-item-title" ] [ text post.title ] ]
         ]
 

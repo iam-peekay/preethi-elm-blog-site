@@ -1,41 +1,50 @@
-module Routes.Parsers exposing (urlParser, parse)
+module Routes.Parsers exposing (..)
 
 import Navigation
-import String
-import UrlParser exposing (Parser, (</>), format, int, oneOf, s, string)
+import UrlParser exposing (Parser, (</>), map, int, oneOf, s, string, parsePath)
 import Routes.Routes exposing (..)
 
 
-urlParser : Navigation.Parser Route
-urlParser =
-    Navigation.makeParser parse
-
-
-parse : Navigation.Location -> Route
-parse { pathname } =
+decode : Navigation.Location -> Route
+decode location =
     let
-        path =
-            if String.startsWith "/" pathname then
-                String.dropLeft 1 pathname
-            else
-                pathname
-
         result =
-            UrlParser.parse identity routeParser path
+            parsePath routeParser location
     in
         case result of
-            Err err ->
+            Nothing ->
                 NotFound
 
-            Ok route ->
+            Just route ->
                 route
+
+
+encode : Route -> String
+encode route =
+    case route of
+        PostRoute postId ->
+            "/post/" ++ (toString postId)
+
+        AboutRoute ->
+            "/about"
+
+        NotFound ->
+            "/404"
+
+        HomeRoute ->
+            "/"
+
+
+navigate : Route -> Cmd msg
+navigate route = 
+    Navigation.newUrl (encode route)
 
 
 routeParser : Parser (Route -> a) a
 routeParser =
     oneOf
-        [ format PostRoute postParser
-        , format HomeRoute homeParser
+        [ map PostRoute postParser
+        , map HomeRoute homeParser
         ]
 
 

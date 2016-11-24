@@ -1,9 +1,8 @@
 module Tasks exposing (..)
 
-import Messages exposing (..)
+import Models exposing (Post)
 import Decoders.Posts exposing (..)
 import Http
-import Task
 
 
 apiHost : String
@@ -11,19 +10,19 @@ apiHost =
     "http://localhost:3000"
 
 
-fetchPosts : Cmd Msg
-fetchPosts =
+fetchPosts : (Result Http.Error (List Post) -> msg) -> Cmd msg
+fetchPosts msg =
     let
         url =
             apiHost ++ "/api/posts"
     in
-        Task.perform FetchFailed ReceivePosts (Http.get decodePosts url)
+        Http.get url decodePosts |> Http.send msg
 
 
-fetchPost : Int -> Cmd Msg
-fetchPost postId =
+fetchPost : Int -> (Result Http.Error Post -> msg) -> Cmd msg
+fetchPost postId msg =
     let
         url =
             apiHost ++ "/api/posts/" ++ (toString postId)
     in
-        Task.perform FetchFailed ReceivePost (Http.get decodePost url)
+        Http.get url decodePost |> Http.send msg

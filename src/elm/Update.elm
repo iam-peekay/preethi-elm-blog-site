@@ -4,6 +4,7 @@ import Navigation
 import Http
 import Models exposing (State, Post, Error)
 import Routes.Routes exposing (..)
+import Routes.Parsers exposing (decode, navigate)
 import Messages exposing (Msg(..))
 import Tasks exposing (..)
 
@@ -14,88 +15,82 @@ update msg state =
         ShowHome ->
             let
                 newCmd =
-                    Navigation.newUrl (reverse HomeRoute)
+                    navigate HomeRoute
             in
                 ( state, newCmd )
 
         ShowPost postId ->
             let
                 newCmd =
-                    Navigation.newUrl (reverse (PostRoute postId))
+                    navigate (PostRoute postId)
             in
                 ( state, newCmd )
 
         ShowAbout ->
             let
                 newCmd =
-                    Navigation.newUrl (reverse (AboutRoute))
+                    navigate AboutRoute
             in
                 ( state, newCmd )
 
-        ReceivePosts posts ->
-            let
-                newState =
-                    { state | posts = Just posts, fetching = False }
-            in
-                ( newState, Cmd.none )
-
-        ReceivePost post ->
-            let
-                newState =
-                    { state | current = Just post, fetching = False }
-            in
-                ( newState, Cmd.none )
-
-        FetchFailed error ->
-            case error of
-                Http.BadResponse code message ->
+        ReceivePosts res ->
+            case res of
+                Result.Ok posts -> 
                     let
-                        error =
-                            { code = toString code, message = message }
-
                         newState =
-                            { state | fetching = False, error = Just error }
+                            { state | posts = Just posts, fetching = False }
                     in
                         ( newState, Cmd.none )
+                Result.Err err ->      
+                    let _ =
+                        Debug.log "Error retrieving posts" err -- TODO: some real error handling
+                    in
+                        (state, Cmd.none)
 
-                _ ->
+        ReceivePost res ->
+            case res of
+                Result.Ok post -> 
                     let
-                        error =
-                            { code = "unknown_error", message = "Something bad happened" }
-
                         newState =
-                            { state | fetching = False, error = Just error }
+                            { state | current = Just post, fetching = False }
                     in
                         ( newState, Cmd.none )
+                Result.Err err ->      
+                    let _ =
+                        Debug.log "Error retrieving posts" err -- TODO: some real error handling
+                    in
+                        (state, Cmd.none)
+        UrlChange location ->              
+            urlUpdate location state
 
 
-urlUpdate : Route -> State -> ( State, Cmd Msg )
-urlUpdate route state =
-    case route of
+urlUpdate : Navigation.Location -> State -> ( State, Cmd Msg )
+urlUpdate location state =
+    case (decode location) of
         HomeRoute ->
             let
                 newState =
-                    { state | posts = Nothing, route = route, fetching = True }
+                    { state | posts = Nothing, route = HomeRoute, fetching = True }
 
                 newCmd =
-                    fetchPosts
+                    (fetchPosts ReceivePosts)
             in
                 ( newState, newCmd )
 
         AboutRoute ->
             let
                 newState =
-                    { state | current = Nothing, route = route }
+                    { state | current = Nothing, route = AboutRoute }
             in
                 ( newState, Cmd.none )
 
         PostRoute postId ->
             let
                 newState =
-                    { state | current = Nothing, route = route, fetching = True }
+                    { state | current = Nothing, route = (PostRoute postId), fetching = True }
 
                 newCmd =
-                    fetchPost postId
+                    (fetchPost postId ReceivePost)
             in
                 ( newState, newCmd )
 
@@ -105,6 +100,6 @@ urlUpdate route state =
                     { code = "not_found", message = "Page not found" }
 
                 newState =
-                    { state | current = Nothing, posts = Nothing, route = route, error = Just error }
+                    { state | current = Nothing, posts = Nothing, route = NotFound, error = Just error }
             in
                 ( newState, Cmd.none )

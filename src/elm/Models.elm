@@ -1,7 +1,7 @@
 module Models exposing (..)
 
 import Routes.Routes exposing (Route)
-
+import Routes.Routes exposing(..)
 
 type alias Error =
     { code : String
@@ -38,11 +38,11 @@ type alias Post =
 -- INIT STATE
 
 
-newState : Route -> Maybe Post -> State
-newState route post =
-    { route = route
+initialState : State
+initialState =
+    { route = HomeRoute
     , fetching = False
     , posts = Nothing
     , error = Nothing
-    , current = post
+    , current = Nothing
     }

@@ -3,22 +3,27 @@ module Tasks exposing (..)
 import Messages exposing (..)
 import Decoders.Posts exposing (..)
 import Http
-import Task 
+import Task
+
 
 apiHost : String
-apiHost = "http://localhost:3000"
-
-fetchPosts : Cmd Msg 
-fetchPosts = 
-  let 
-    url = apiHost ++ "/api/posts"
-  in 
-    Task.perform FetchFailed ReceivePosts (Http.get decodePosts url)
+apiHost =
+    "http://localhost:3000"
 
 
-fetchPost : Int -> Cmd Msg 
+fetchPosts : Cmd Msg
+fetchPosts =
+    let
+        url =
+            apiHost ++ "/api/posts"
+    in
+        Task.perform FetchFailed ReceivePosts (Http.get decodePosts url)
+
+
+fetchPost : Int -> Cmd Msg
 fetchPost postId =
-  let 
-    url = apiHost ++ "/api/posts/" ++ (toString postId)
-  in 
-    Task.perform FetchFailed ReceivePost (Http.get decodePost url)
+    let
+        url =
+            apiHost ++ "/api/posts/" ++ (toString postId)
+    in
+        Task.perform FetchFailed ReceivePost (Http.get decodePost url)

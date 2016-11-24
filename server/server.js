@@ -62,7 +62,7 @@ app.get('/api/posts/:id', (req, res) => {
 
 // For all other undefined routes, return 404
 app.get('/api/*', (req, res) => {
-  res.status(404).send({ id: 'not_found', message: `Not found` });
+  res.status(404).send({ id: 'not_found', message: `Route not found` });
 });
 
 app.get('/', (req, res) => {

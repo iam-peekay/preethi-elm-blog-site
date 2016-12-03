@@ -5,10 +5,6 @@ import Models exposing (..)
 import View exposing (view)
 import Update exposing (..)
 import Messages exposing (Msg(..))
-import Routes.Routes exposing (..)
-
-
--- TODO: Add rest of routes
 
 init : Navigation.Location -> ( State, Cmd Msg )
 init location =

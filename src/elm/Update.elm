@@ -30,6 +30,9 @@ update msg state =
             let
                 newCmd =
                     navigate AboutRoute
+
+                _ = 
+                    Debug.log "Got here"
             in
                 ( state, newCmd )
 
@@ -44,7 +47,7 @@ update msg state =
             let _ =
                 Debug.log "Error retrieving posts" err -- TODO: some real error handling
             in
-                (state, Cmd.none)
+                ( state, Cmd.none )
 
         ReceivePost (Result.Ok post) ->
             let
@@ -52,11 +55,13 @@ update msg state =
                     { state | current = Just post, fetching = False }
             in
                 ( newState, Cmd.none )
+                
         ReceivePost (Result.Err err) ->      
             let _ =
                 Debug.log "Error retrieving posts" err -- TODO: some real error handling
             in
-                (state, Cmd.none)
+                ( state, Cmd.none )
+
         UrlChange location ->              
             urlUpdate location state
 

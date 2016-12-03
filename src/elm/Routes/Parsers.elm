@@ -36,7 +36,7 @@ encode route =
 
 
 navigate : Route -> Cmd msg
-navigate route = 
+navigate route =
     Navigation.newUrl (encode route)
 
 
@@ -45,6 +45,7 @@ routeParser =
     oneOf
         [ map PostRoute postParser
         , map HomeRoute homeParser
+        , map AboutRoute aboutParser
         ]
 
 
@@ -59,3 +60,7 @@ homeParser =
 postParser : Parser (Int -> a) a
 postParser =
     s "post" </> int
+
+aboutParser : Parser a a
+aboutParser =
+    s "about"

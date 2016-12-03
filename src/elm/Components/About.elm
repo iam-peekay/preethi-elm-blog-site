@@ -6,6 +6,8 @@ import Messages exposing (Msg)
 
 component : Html Msg
 component =
-    div [ class "aboutme-container" ]
-        [ h1 [ class "header" ] [ text ("About Me") ]
+    div [ class "about-container" ]
+        [ 
+          h1 [ class "about-header" ] [ text ("About Me") ]
+        , div [ class "about-body" ] [ text "My name is Preethi" ]
         ]

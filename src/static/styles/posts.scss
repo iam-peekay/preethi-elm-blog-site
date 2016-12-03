@@ -1,3 +1,12 @@
+.post-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
 .post-item {
   padding-bottom: 15px;
 }
@@ -32,11 +41,6 @@
   color: #FCDDBC;
 }
 
-.post-container {
-  display: flex;
-  flex-direction: column;
-}
-
 .post-header {
   text-align: center;
   color: #FCDDBC;
@@ -46,7 +50,6 @@
 }
 
 .post-author {
-  text-align: center;
   font-size: 16px;
   color: #EF959D;
   padding-bottom: 10px;

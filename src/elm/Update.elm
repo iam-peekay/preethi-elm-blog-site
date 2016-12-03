@@ -33,33 +33,30 @@ update msg state =
             in
                 ( state, newCmd )
 
-        ReceivePosts res ->
-            case res of
-                Result.Ok posts -> 
-                    let
-                        newState =
-                            { state | posts = Just posts, fetching = False }
-                    in
-                        ( newState, Cmd.none )
-                Result.Err err ->      
-                    let _ =
-                        Debug.log "Error retrieving posts" err -- TODO: some real error handling
-                    in
-                        (state, Cmd.none)
+        ReceivePosts (Result.Ok posts) ->
+            let
+                newState =
+                    { state | posts = Just posts, fetching = False }
+            in
+                ( newState, Cmd.none )
 
-        ReceivePost res ->
-            case res of
-                Result.Ok post -> 
-                    let
-                        newState =
-                            { state | current = Just post, fetching = False }
-                    in
-                        ( newState, Cmd.none )
-                Result.Err err ->      
-                    let _ =
-                        Debug.log "Error retrieving posts" err -- TODO: some real error handling
-                    in
-                        (state, Cmd.none)
+        ReceivePosts (Result.Err err) ->
+            let _ =
+                Debug.log "Error retrieving posts" err -- TODO: some real error handling
+            in
+                (state, Cmd.none)
+
+        ReceivePost (Result.Ok post) ->
+            let
+                newState =
+                    { state | current = Just post, fetching = False }
+            in
+                ( newState, Cmd.none )
+        ReceivePost (Result.Err err) ->      
+            let _ =
+                Debug.log "Error retrieving posts" err -- TODO: some real error handling
+            in
+                (state, Cmd.none)
         UrlChange location ->              
             urlUpdate location state
 
